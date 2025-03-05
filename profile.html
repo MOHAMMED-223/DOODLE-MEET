@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doodle - Profile Settings</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+          <h1>Doodle</h1>
+        </div>
+        <nav class="nav-menu">
+          <button class="logout-btn" onclick="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Log out</span>
+          </button>
+        </nav>
+      </header>
+
+      <!-- Main Content -->
+      <main class="profile-content">
+        <div class="profile-container">
+          <div class="profile-header">
+            <h2 data-translate="profileSettings">Profile Settings</h2>
+            <p data-translate="manageAccount">
+              Manage your account settings and preferences
+            </p>
+          </div>
+
+          <div class="profile-grid">
+            <!-- Avatar Section -->
+            <div class="profile-section avatar-section">
+              <h3 data-translate="profilePicture">Profile Picture</h3>
+              <div class="avatar-wrapper">
+                <img src="./oip.jpg" alt="Profile Picture" id="profileAvatar" />
+                <button class="change-avatar-btn">
+                  <i class="fas fa-camera"></i>
+                </button>
+                <input type="file" id="avatarInput" accept="image/*" hidden />
+              </div>
+              <p class="avatar-help" data-translate="clickToChange">
+                Click to change profile picture
+              </p>
+            </div>
+
+            <!-- Personal Info Section -->
+            <div class="profile-section">
+              <h3 data-translate="personalInfo">Personal Information</h3>
+              <form id="profileForm" class="profile-form">
+                <div class="form-group">
+                  <label for="fullName" data-translate="fullName"
+                    >Full Name</label
+                  >
+                  <div class="input-group">
+                    <i class="fas fa-user"></i>
+                    <input
+                      type="text"
+                      id="fullName"
+                      placeholder="Enter your full name"
+                      data-translate="enterFullName"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="email">Email</label>
+                  <div class="input-group">
+                    <i class="fas fa-envelope"></i>
+                    <input
+                      type="email"
+                      id="email"
+                      placeholder="Enter your email"
+                      required
+                    />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone Number</label>
+                  <div class="input-group">
+                    <i class="fas fa-phone"></i>
+                    <input
+                      type="tel"
+                      id="phone"
+                      placeholder="Enter your phone number"
+                    />
+                  </div>
+                </div>
+              </form>
+            </div>
+
+            <!-- Meeting Settings Section -->
+            <div class="profile-section">
+              <h3 data-translate="meetingPreferences">Meeting Preferences</h3>
+              <div class="settings-group">
+                <div class="setting-item">
+                  <label class="setting-label">
+                    <span data-translate="muteMicJoin"
+                      >Mute microphone when joining</span
+                    >
+                    <div class="toggle-switch">
+                      <input type="checkbox" id="muteMic" />
+                      <span class="toggle-slider"></span>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <label class="setting-label">
+                    <span data-translate="turnOffCameraJoin"
+                      >Turn off camera when joining</span
+                    >
+                    <div class="toggle-switch">
+                      <input type="checkbox" id="turnOffCamera" />
+                      <span class="toggle-slider"></span>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="setting-item">
+                  <label class="setting-label">
+                    <span data-translate="highQuality"
+                      >Use high quality video</span
+                    >
+                    <div class="toggle-switch">
+                      <input type="checkbox" id="highQuality" />
+                      <span class="toggle-slider"></span>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <!-- Language Section -->
+            <div class="profile-section">
+              <h3 data-translate="languageSettings">Language Settings</h3>
+              <div class="form-group">
+                <label for="language" data-translate="preferredLanguage"
+                  >Preferred Language</label
+                >
+                <div class="input-group">
+                  <i class="fas fa-globe"></i>
+                  <select id="language" class="language-select">
+                    <option value="en">English</option>
+                    <option value="ar">العربية</option>
+                    <option value="es">Español</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-actions">
+            <button type="submit" class="save-btn">
+              <i class="fas fa-save"></i>
+              <span data-translate="saveChanges">Save Changes</span>
+            </button>
+            <button type="button" class="cancel-btn" onclick="history.back()">
+              <i class="fas fa-times"></i>
+              <span data-translate="cancel">Cancel</span>
+            </button>
+          </div>
+        </div>
+      </main>
+    </div>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/translations/en.js"></script>
+    <script src="js/translations/ar.js"></script>
+    <script src="js/translations/es.js"></script>
+    <script src="js/translations.js"></script>
+    <script src="js/profile.js"></script>
+  </body>
+</html>

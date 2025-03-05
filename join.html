@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doodle - Join Meeting</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <div class="join-container">
+        <div class="join-box">
+          <div class="logo-section">
+            <h1>Doodle</h1>
+            <p>Join Meeting</p>
+          </div>
+
+          <div class="join-options">
+            <button class="join-btn" id="joinWithVideo">
+              <i class="fas fa-video"></i>
+              Join with Video
+            </button>
+            <button class="join-btn" id="joinWithoutVideo">
+              <i class="fas fa-video-slash"></i>
+              Join without Video
+            </button>
+          </div>
+
+          <div class="join-settings">
+            <label class="setting-toggle">
+              <input type="checkbox" id="muteAudioSetting" checked />
+              <span>Join with microphone muted</span>
+            </label>
+            <label class="setting-toggle">
+              <input type="checkbox" id="turnOffVideoSetting" />
+              <span>Join with camera off</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="js/join.js"></script>
+  </body>
+</html>

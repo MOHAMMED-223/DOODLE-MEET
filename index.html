@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Doodle - Video Conferencing</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Firebase SDKs -->
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.x.x/firebase-storage-compat.js"></script>
+    <script src="js/firebase-config.js"></script>
+    <script src="js/translations/en.js"></script>
+    <script src="js/translations/ar.js"></script>
+    <script src="js/translations/es.js"></script>
+    <script src="js/translations.js"></script>
+  </head>
+  <body>
+    <div class="container">
+      <!-- Header -->
+      <header class="header">
+        <div class="logo">
+          <h1>Doodle</h1>
+        </div>
+        <nav class="nav-menu">
+          <button
+            class="join-meeting"
+            onclick="showJoinMeetingDialog()"
+            data-translate="joinMeeting"
+          >
+            <i class="fas fa-sign-in-alt"></i>
+            <span>Join Meeting</span>
+          </button>
+          <button
+            class="host-meeting"
+            onclick="createNewMeeting()"
+            data-translate="hostMeeting"
+          >
+            <i class="fas fa-video"></i>
+            <span>Host Meeting</span>
+          </button>
+          <div class="user-section">
+            <button class="user-profile" onclick="location.href='profile.html'">
+              <img src="./oip.jpg" alt="User Avatar" id="userAvatar" />
+              <span id="userName"></span>
+            </button>
+            <button class="header-logout-btn" onclick="logout()">
+              Log out
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      <!-- Main Content -->
+      <main class="main-content">
+        <!-- Meeting Room -->
+        <div class="meeting-room hidden">
+          <div class="video-grid">
+            <div class="video-container main-video">
+              <video id="localVideo" autoplay muted playsinline></video>
+              <div class="participant-name">You</div>
+            </div>
+          </div>
+
+          <!-- Meeting Controls -->
+          <div class="meeting-controls">
+            <button class="control-btn" id="meetingInfo" title="Meeting Info">
+              <i class="fas fa-info-circle"></i>
+            </button>
+            <button
+              class="control-btn"
+              id="muteAudio"
+              title="Mute Audio (Alt + M)"
+            >
+              <i class="fas fa-microphone"></i>
+            </button>
+            <button
+              class="control-btn"
+              id="stopVideo"
+              title="Stop Video (Alt + V)"
+            >
+              <i class="fas fa-video"></i>
+            </button>
+            <button class="control-btn" id="shareScreen" title="Share Screen">
+              <i class="fas fa-desktop"></i>
+            </button>
+            <button class="control-btn" id="chat" title="Open Chat (Alt + C)">
+              <i class="fas fa-comment"></i>
+            </button>
+            <button class="control-btn" id="participants" title="Participants">
+              <i class="fas fa-users"></i>
+            </button>
+            <button class="control-btn" id="lockMeeting" title="Lock Meeting">
+              <i class="fas fa-lock-open"></i>
+            </button>
+            <button
+              class="control-btn"
+              id="recordMeeting"
+              title="Record Meeting"
+            >
+              <i class="fas fa-record-vinyl"></i>
+            </button>
+            <button
+              class="control-btn leave-meeting"
+              id="leaveMeeting"
+              title="Leave Meeting (Alt + L)"
+            >
+              <i class="fas fa-phone-slash"></i>
+            </button>
+            <button class="control-btn" id="reactions" title="Reactions">
+              <i class="fas fa-smile"></i>
+            </button>
+            <button
+              class="control-btn"
+              id="raiseHand"
+              title="Raise Hand (Alt + H)"
+            >
+              <i class="fas fa-hand"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Welcome Screen -->
+        <div class="welcome-screen">
+          <h2>Welcome to Doodle Meet</h2>
+          <div class="meeting-options">
+            <div class="option-card">
+              <i class="fas fa-video"></i>
+              <h3>New Meeting</h3>
+              <p>Create a new meeting and invite others</p>
+              <button class="new-meeting-btn">
+                <i class="fas fa-plus-circle"></i>
+                Start New Meeting
+              </button>
+            </div>
+            <div class="option-card">
+              <i class="fas fa-keyboard"></i>
+              <h3>Join Meeting</h3>
+              <p>Join a meeting with a code</p>
+              <input
+                type="text"
+                placeholder="Enter meeting code"
+                class="meeting-code-input"
+              />
+              <button class="join-meeting-btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Join Meeting
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Chat Panel -->
+        <div class="chat-panel hidden">
+          <div class="chat-header">
+            <h3>Meeting Chat</h3>
+            <button class="close-chat">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="chat-messages"></div>
+          <div class="chat-input-area">
+            <input type="text" placeholder="Type a message..." id="chatInput" />
+            <button id="sendMessage">
+              <i class="fas fa-paper-plane"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Add Reactions Menu -->
+        <div class="reactions-menu hidden">
+          <button class="reaction-btn" data-emoji="👍" title="Thumbs Up">
+            👍
+          </button>
+          <button class="reaction-btn" data-emoji="👏" title="Clap">👏</button>
+          <button class="reaction-btn" data-emoji="❤️" title="Heart">❤️</button>
+          <button class="reaction-btn" data-emoji="😊" title="Smile">😊</button>
+          <button class="reaction-btn" data-emoji="😂" title="Laugh">😂</button>
+          <button class="reaction-btn" data-emoji="🎉" title="Celebrate">
+            🎉
+          </button>
+        </div>
+      </main>
+    </div>
+    <script src="js/main.js"></script>
+  </body>
+</html>
